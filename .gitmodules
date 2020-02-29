@@ -1,0 +1,6 @@
+[submodule "shwitter-com-nodeJS"]
+	path = shwitter-com-nodeJS
+	url = git@github.com:Shwitter/shwitter-com-nodeJS.git
+[submodule "shwitter-com-react"]
+	path = shwitter-com-react
+	url = git@github.com:Shwitter/shwitter-com-react.git

@@ -1,0 +1,46 @@
+version: "3.7"
+
+services: 
+    shwitter.traefik:
+        container_name: 'shwitter.traefik'
+        image: traefik:v1.7
+        command: --api --docker
+        labels:
+            - traefik.frontend.rule=Host:monitor.shwitter.localhost
+            - traefik.port=8080
+        ports:
+            - '80:80'
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+    
+    shwitter.frontend:
+        container_name: shwitter.frontend
+        user: node
+        image: node:13.8.0-alpine3.11 
+        labels: 
+            - traefik.frontend.rule=Host:shwitter.localhost
+            - traefik.port=3000
+        depends_on: 
+            - shwitter.traefik
+        expose: 
+            - '3000'
+        volumes:
+            - './shwitter-com-react:/home/node'
+        working_dir: /home/node
+        command: npm run start
+
+    shwitter.api:
+        container_name: 'shwitter.api'
+        user: node
+        image: node:13.8.0-alpine3.11 
+        labels:
+            - traefik.frontend.rule=Host:api.shwitter.localhost
+            - traefik.port=4200
+        depends_on:
+            - 'shwitter.traefik'
+        expose:
+            - '4200'
+        volumes:
+            - './shwitter-com-nodeJS:/home/node'
+        working_dir: /home/node
+        command: npm run dev
