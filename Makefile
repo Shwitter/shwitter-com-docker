@@ -33,14 +33,10 @@ logs:
 	@docker-compose logs -f $(filter-out $@,$(MAKECMDGOALS))
 
 install:
-	if [ -d "/shwitter-com-react" ]; then git clone -b develop $(REACT_REPO); fi &&\
-	if [ -d "/shwitter-com-nodeJS" ]; then git clone -b develop $(API_REPO); fi && \
-	docker-compose build &&\
-	make up &&\
-	docker exec -it --user node shwitter.api npm install &&\
-	docker exec -it --user node shwitter.frontend npm install \
-	make start-servers
+	./scripts/install.sh
 
-start-servers:
-	docker exec -it --user node shwitter.api npm run dev \
-	docker exec -it --user node shwitter.frontend npm start
+front-start:
+	docker exec -it -d --user node shwitter.frontend npm start
+
+api-start:
+	docker exec -it -d --user node shwitter.api npm run dev 
