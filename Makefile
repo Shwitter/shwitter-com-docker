@@ -36,7 +36,7 @@ install:
 	./scripts/install.sh
 
 front-start:
-	docker exec -it -d --user node shwitter.frontend npm start
+	docker exec -it --user node shwitter.frontend npm start
 
 api-start:
-	docker exec -it -d --user node shwitter.api npm run dev 
+	docker exec -it --user node shwitter.api npm run dev
