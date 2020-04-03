@@ -44,3 +44,13 @@ services:
             - './shwitter-com-nodeJS:/home/node'
         working_dir: /home/node
         command:  sh -c 'tail -f /dev/null'
+
+    shwitter.db:
+        container_name: 'shwitter.db'
+        image: postgres:12.2-alpine
+        env_file:
+            - .env
+        volumes:
+            - db:/var/lib/postgresql/data
+volumes:
+    db:
