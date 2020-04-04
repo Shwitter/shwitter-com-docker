@@ -45,12 +45,23 @@ services:
         working_dir: /home/node
         command:  sh -c 'tail -f /dev/null'
 
+#    shwitter.db:
+#        container_name: 'shwitter.db'
+#        image: postgres:12.2-alpine
+#        env_file:
+#            - .env
+#        volumes:
+#            - db:/var/lib/postgresql/data
+
     shwitter.db:
-        container_name: 'shwitter.db'
-        image: postgres:12.2-alpine
+        container_name: shwitter.db
+        image: 'mongo:latest'
         env_file:
             - .env
         volumes:
-            - db:/var/lib/postgresql/data
+            - db:/data/db
+        ports:
+            - 27017:27017
+
 volumes:
     db:

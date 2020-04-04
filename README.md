@@ -17,4 +17,4 @@
 - `make shell-api`-to enter into api container
 - `make shell-front`- to enter into front container
 - `make shell-db` - to enter into database container
-- `make psql` - to enter into postgresql cli
+- `make mongo-cli` - to enter into mongo cli

@@ -30,10 +30,10 @@ shell-front:
 	@docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell docker ps --filter name='shwitter.frontend' --format "{{ .ID }}") sh
 
 shell-db:
-	@docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell docker ps --filter name='shwitter.db' --format "{{ .ID }}") sh
+	@docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell docker ps --filter name='shwitter.db' --format "{{ .ID }}") bash
 
-psql:
-	@docker exec -it shwitter.db psql -U shwitter
+mongo-cli:
+	@docker exec -it shwitter.db mongo -u shwitter -p shwitter
 
 logs:
 	@docker-compose logs -f $(filter-out $@,$(MAKECMDGOALS))
