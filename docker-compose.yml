@@ -1,6 +1,6 @@
 version: "3"
 
-services: 
+services:
     shwitter.traefik:
         container_name: 'shwitter.traefik'
         image: traefik:v1.7
@@ -12,17 +12,17 @@ services:
             - '80:80'
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
-    
+
     shwitter.frontend:
         container_name: shwitter.frontend
         user: node
-        image: node:13.8.0-alpine3.11 
-        labels: 
+        image: node:13.8.0-alpine3.11
+        labels:
             - traefik.frontend.rule=Host:shwitter.localhost
             - traefik.port=3000
-        depends_on: 
+        depends_on:
             - shwitter.traefik
-        expose: 
+        expose:
             - '3000'
         volumes:
             - './shwitter-com-react:/home/node'
@@ -32,7 +32,7 @@ services:
     shwitter.api:
         container_name: 'shwitter.api'
         user: node
-        image: node:13.8.0-alpine3.11 
+        image: node:13.8.0-alpine3.11
         labels:
             - traefik.frontend.rule=Host:api.shwitter.localhost
             - traefik.port=4200
@@ -55,9 +55,13 @@ services:
 
     shwitter.db:
         container_name: shwitter.db
-        image: 'mongo:latest'
-        env_file:
-            - .env
+        image: 'mongo:4.2'
+#        environment:
+#            MONGODB_USER: "shwitter"
+#            MONGODB_DATABASE: "shwitter"
+#            MONGODB_PASS: "shwitter"
+#        env_file:
+#            - .env
         volumes:
             - db:/data/db
         ports:

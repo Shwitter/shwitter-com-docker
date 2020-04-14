@@ -1,6 +1,6 @@
 -include .env
 
-.PHONY: up down stop prune ps shell  logs setup setdev setprod go 
+.PHONY: up down stop prune ps shell  logs setup setdev setprod go
 
 default: up
 
@@ -33,7 +33,8 @@ shell-db:
 	@docker exec -ti -e COLUMNS=$(shell tput cols) -e LINES=$(shell tput lines) $(shell docker ps --filter name='shwitter.db' --format "{{ .ID }}") bash
 
 mongo-cli:
-	@docker exec -it shwitter.db mongo -u shwitter -p shwitter
+	@docker exec -it shwitter.db mongo
+#	-u shwitter -p shwitter
 
 logs:
 	@docker-compose logs -f $(filter-out $@,$(MAKECMDGOALS))
