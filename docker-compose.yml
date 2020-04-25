@@ -19,13 +19,13 @@ services:
         image: node:13.8.0-alpine3.11
         labels:
             - traefik.frontend.rule=Host:shwitter.localhost
-            - traefik.port=3000
+            - traefik.port=4200
         depends_on:
             - shwitter.traefik
         expose:
-            - '3000'
+            - '4200'
         volumes:
-            - './shwitter-com-react:/home/node'
+            - './shwitter-com-angular:/home/node'
         working_dir: /home/node
         command:  sh -c 'tail -f /dev/null'
 
@@ -35,11 +35,11 @@ services:
         image: node:13.8.0-alpine3.11
         labels:
             - traefik.frontend.rule=Host:api.shwitter.localhost
-            - traefik.port=4200
+            - traefik.port=3000
         depends_on:
             - 'shwitter.traefik'
         expose:
-            - '4200'
+            - '3000'
         volumes:
             - './shwitter-com-nodeJS:/home/node'
         working_dir: /home/node
